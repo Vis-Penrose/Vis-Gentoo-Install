@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export PS1="(chroot) ${PS1}"
-
 ## Portage configuration
 emerge-webrsync
 
@@ -24,7 +22,7 @@ echo "*/* VIDEO_CARDS: amdgpu radeonsi" > /etc/portage/package.use/00video_cards
 echo 'ACCEPT_LICENSE="*"' >> /etc/portage/make.conf
 
 # Updating the @world set
-emerge --ask --verbose --update --deep --changed-use @world
+emerge --verbose --update --deep --changed-use @world
 
 
 # Timezone 
