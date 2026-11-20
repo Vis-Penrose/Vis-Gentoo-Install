@@ -26,7 +26,9 @@ mkdir --parents /mnt/gentoo/efi
 mount /dev/nvme0n1p1 /mnt/gentoo/efi
 
 # Installing the stage file (desktop profile openrc)
-wget https://distfiles.gentoo.org/releases/amd64/autobuilds/20261115T170104Z/stage3-amd64-desktop-openrc-20261115T170104Z.tar.xz
+STAGE3_DIR="https://distfiles.gentoo.org/releases/amd64/autobuilds/current-stage3-amd64-desktop-openrc"
+STAGE3_FILE=$(curl -fsSL "$STAGE3_DIR/latest-stage3-amd64-desktop-openrc.txt" | awk '/^stage3-amd64-desktop-openrc-.*\.tar\.xz$/ {print $1}')
+wget "$STAGE3_DIR/$STAGE3_FILE"
 tar xpvf stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner -C /mnt/gentoo
 
 # Configuring compile options
