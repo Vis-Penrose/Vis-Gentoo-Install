@@ -47,7 +47,8 @@ echo "sys-kernel/installkernel systemd systemd-boot" >> /etc/portage/package.use
 # The kernel command line to use for new kernels should be specified in /etc/kernel/cmdline and /etc/cmdline. As they both need to be updated together, it make sense to symlink the two files now.
 mkdir -p /etc/cmdline.d
 ln -s /etc/kernel/cmdline /etc/cmdline.d/00-installkernel.conf
-echo "quiet splash" > /etc/kernel/cmdline
+ROOT_UUID=$(blkid -s UUID -o value /dev/nvme0n1p3)
+echo "root=UUID=${ROOT_UUID} splash quiet" > /etc/kernel/cmdline
 emerge sys-kernel/installkernel
 
 # Initramfs
