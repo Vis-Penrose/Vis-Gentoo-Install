@@ -40,14 +40,14 @@ emerge linux-firmware sof-firmware gentoolkit
 # Bootloader
 # systemd-boot
 # adding USE flags to use systemd-boot on an openrc system
-echo -e 'sys-apps/systemd boot\nsys-apps/systemd-utils boot kernel-install\nsys-kernel/installkernel systemd systemd-boot' > /etc/portage/package.use/systemd-boot
-# kernel command line
-ROOT_UUID=$(blkid -s UUID -o value /dev/nvme0n1p3)
-echo "root=UUID=${ROOT_UUID} rw splash quiet" > /etc/kernel/cmdline
+echo "sys-apps/systemd boot" > /etc/portage/package.use/systemd-boot
+echo "sys-apps/systemd-utils boot kernel-install" >> /etc/portage/package.use/systemd-boot
+echo "sys-kernel/installkernel systemd systemd-boot" >> /etc/portage/package.use/systemd-boot
 
 # The kernel command line to use for new kernels should be specified in /etc/kernel/cmdline and /etc/cmdline. As they both need to be updated together, it make sense to symlink the two files now.
 mkdir -p /etc/cmdline.d
 ln -s /etc/kernel/cmdline /etc/cmdline.d/00-installkernel.conf
+echo "quiet splash" > /etc/kernel/cmdline
 emerge sys-kernel/installkernel
 
 # Initramfs
@@ -68,8 +68,6 @@ echo 'net-misc/networkmanager iwd wifi' > /etc/portage/package.use/networkmanage
 emerge networkmanager
 rc-update add NetworkManager default
 
-# setting password
-passwd
 
 ## installing tools
 emerge app-admin/sysklogd # System logger
@@ -82,9 +80,8 @@ emerge net-misc/chrony # Time synchronization
 rc-update add chronyd default
 
 # systemd-boot
-echo 'sys-apps/systemd-utils boot' >> /etc/portage/package.use/systemd-boot
 emerge sys-apps/systemd-utils
 bootctl install
 bootctl list # verify that a new bootable entry exists before rebooting
 
-echo 'All done, the last step is to exit chrooted environment and unmount all mounted partitions, Then type in that one magical command that initiates the final, true test: reboot.'
+echo 'All done, the last step is to set a password, exit chrooted environment and unmount all mounted partitions, Then type in that one magical command that initiates the final, true test: reboot.'
