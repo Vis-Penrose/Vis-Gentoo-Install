@@ -42,7 +42,6 @@ echo -e "nameserver 1.1.1.1\nnameserver 1.0.0.1" > /mnt/gentoo/etc/resolv.conf
 
 
 # moving the second script inside chroot
-mv chroot.sh /mnt/gentoo
 
 echo "The first part of the script is done, continue by running ./chroot.sh inside chroot environment"
 
