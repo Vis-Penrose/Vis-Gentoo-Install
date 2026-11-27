@@ -58,9 +58,13 @@ emerge sys-kernel/installkernel
 emerge sys-kernel/gentoo-kernel-bin
 euse -E dist-kernel
 
+# creating the fstab file
+emerge -1 genfstab
+genfstab -U / >> /etc/fstab
+
 # Making sure there's internet connection after boot
 # wpa_supplicant isn't installed so NetworkManager should defaults to iwd
-echo 'net-misc/networkmanager iwd wifi' > /etc/portage/package.use/systemd-boot
+echo 'net-misc/networkmanager iwd wifi' > /etc/portage/package.use/networkmanager
 emerge networkmanager
 rc-update add NetworkManager default
 
