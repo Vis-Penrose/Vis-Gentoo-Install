@@ -42,9 +42,6 @@ echo -e 'MAKEOPTS="-j12 -l13"' >> /mnt/gentoo/etc/portage/make.conf
 # adding DNS info
 echo -e "nameserver 1.1.1.1\nnameserver 1.0.0.1" > /mnt/gentoo/etc/resolv.conf
 
-# creating the fstab file
-emerge -1 genfstab
-genfstab -U /mnt/gentoo >> /mnt/gentoo/etc/fstab
 
 # moving the second script inside chroot
 mv chroot.sh /mnt/gentoo
